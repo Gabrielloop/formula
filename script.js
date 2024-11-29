@@ -3,6 +3,25 @@
 const tyreDurationS = 20;
 const tyreDurationM = 30;
 const tyreDurationH = 40;
+
+const tyres = [
+    {
+        type: "S",
+        expectDuration: 20,
+        quantity: 2,
+    },
+    {
+        type: "M",
+        expectDuration: 30,
+        quantity: 2,
+    },
+    {
+        type: "H",
+        expectDuration: 40,
+        quantity: 2,
+    },
+];
+
 // TOURS
 const totalLap = 70;
 // UTILISATEURS
@@ -40,10 +59,10 @@ const tyresStrategy = [
 // return : ("tyretype")
 function pitLapControl(lap) {
     const idPitLap = tyresStrategy.findIndex(element => element.pitLap == lap);
-        if(idPitLap>=0){
-            console.warn("New tyres : " + tyresStrategy[idPitLap].tyreType);
-            return tyresStrategy[idPitLap].tyreType;
-        }
+    if (idPitLap >= 0) {
+        console.warn("New tyres : " + tyresStrategy[idPitLap].tyreType);
+        return tyresStrategy[idPitLap].tyreType;
+    }
 }
 
 // Fonction de changement des pneusc
@@ -57,29 +76,34 @@ function pitChangeTyres(typeOfTyres, acutalLap) {
 
 // Fonction de calcul de l'age des pneus
 // return : i
-function tyresAge(pitLapTyresChanged, currentLapProp){
-    const ageTyres=currentLapProp-pitLapTyresChanged;
+
+function tyresAge(pitLapTyresChanged, currentLapProp) {
+    const ageTyres = currentLapProp - pitLapTyresChanged;
+
     return ageTyres;
 }
 
 //Fonction de calcul de l'éfficacité
 
-function efficiency(tyresAgeEff, ) {
+// 1/exp(x)
+function efficiency(tyresAgeEff, tyresTypeEFF) {
+    efficiencyI=1/Math.exp(tyresAgeEff/20);
+    efficiencyI=Number(efficiencyI).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2});
+    return efficiencyI;
 
-    return ;
 }
 
 for (i = 0; i < totalLap + 1; i++) {
     currentLap++;
-    // CONTROLE DE LA STRATEGIE
-    if (pitLapControl(i)!=null){
+
+    // Controle de présence d'un changement de stratégie et application de la stratégie
+    if (pitLapControl(i) != null) {
         pitChangeTyres(pitLapControl(i), i)
-    } else {}
-
+    }
+    // Préparation du message à afficher dans la console
     const msgLap = "Tour n°" + currentLap;
-    const msgCurrentTyres = currentTyres.tyreType + " tyres (" + tyresAge(currentTyres.pitLap, i) + " lap)";
+    const msgCurrentTyres = currentTyres.tyreType + " tyres (age :" + tyresAge(currentTyres.pitLap, i) + " lap)";
+    const msgEfficiency = efficiency(tyresAge(currentTyres.pitLap, i), "M")
+    console.log(msgLap + "-" + msgCurrentTyres + " " + msgEfficiency);
 
-
-
-    console.log(msgLap + "-" + msgCurrentTyres);
 }
