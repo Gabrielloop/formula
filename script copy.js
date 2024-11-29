@@ -22,7 +22,6 @@ const tyres = [
         quantity: 2,
     },
 ];
-
 // TOURS
 const totalLap = 70;
 const averageTimeLapInMille = 90000;
@@ -100,18 +99,16 @@ function pitChangeTyres(typeOfTyres, acutalLap) {
 
 // Fonction de calcul de l'age des pneus
 // return : i
-
 function tyresAge(pitLapTyresChanged, currentLapProp) {
     const ageTyres = currentLapProp - pitLapTyresChanged;
-
     return ageTyres;
 }
 
+//Fonction de calcul de l'efficacité
 // 1/exp(x)
 function efficiency(tyresAgeEff, tyresTypeEFF) {
     efficiencyI = 1 / Math.exp(tyresAgeEff / 20);
     return efficiencyI;
-
 }
 function formatpourcent(decimal){
     return Number(decimal).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 });
@@ -120,7 +117,6 @@ function formatpourcent(decimal){
 
 for (i = 0; i < totalLap + 1; i++) {
     currentLap++;
-
     // Controle de présence d'un changement de stratégie et application de la stratégie
     if (pitLapControl(i) != null) {
         pitChangeTyres(pitLapControl(i), i)
@@ -128,7 +124,6 @@ for (i = 0; i < totalLap + 1; i++) {
     // Préparation du message à afficher dans la console
     const msgLap = "Tour n°" + currentLap;
     const msgCurrentTyres = currentTyres.tyreType + " tyres (age :" + tyresAge(currentTyres.pitLap, i) + " lap)";
-    
     const msgEfficiency = formatpourcent(efficiency(tyresAge(currentTyres.pitLap, i), "M"));
     const msgLapTime = formatTime(averageTimeLapInMille - efficiency(tyresAge(currentTyres.pitLap, i), "M")*tyreImpactMaxInMille);
     console.log(msgLap + "-" + msgCurrentTyres + " " + msgEfficiency + " " + msgLapTime);
