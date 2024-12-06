@@ -1,169 +1,108 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr-FR">
-<head>
-    <meta charset="UTF-8">
-    <meta title="Portfolio">
-    <meta http-equiv="Content-Language" content="fr-FR">
-    <meta name="keywords" content="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta title="Portfolio" />
+    <meta http-equiv="Content-Language" content="fr-FR" />
+    <meta name="keywords" content="" />
     <!-- REMPLIR LES METAS KEYWORDS -->
-    <meta name="author" content="Gabriel HENIN">
-    <meta name="viewport" content="Wifht=devise-width, initial-scale=1">
+    <meta name="author" content="Gabriel HENIN" />
+    <meta viewport="width=device-width, initial-scale=1.0" />
     <title>Portfolio Gabriel HENIN</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/style.css" />
+    <script src="scripts/datas.js" defer></script>
+    <script src="scripts/ranking.js" defer></script>
+  </head>
+  <body>
     <header>
-        <nav class="navbar bg-body-tertiary fixed-top" data-bs-theme="dark">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Offcanvas navbar</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                  <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                          <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  <form class="d-flex mt-3" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </nav>
+      <nav></nav>
     </header>
     <main>
-        <aside>
-          <div class="ranking-row" id="position-1">
-              <div class="rank-position"></div>
-              <div class="rank-team"></div>
-              <div class="rank-name"></div>
-              <div class="rank-time"></div>
+      <aside>
+        <div class="ranking">
+          <div class="logo-f1-race-type">
+            <img src="assets/fone.png" alt="F1" />
+            <h3>RACE</h3>
           </div>
-        </aside>
-        <div class="container-workplace-perso">
-            <!-- AFFICHAGE DES BOITE DE REGLAGE -->
-             <!-- MANAGE THE PACE -->
-            <div>
-                <label for="customRange2" class="form-label"><h3>Race conditions</h3></label>
-                <br>Nombre de tours
-                <br>Météo
-                <br>
-                
-            </div>
-            <!-- FIN DE LA BOITE -->
-             <!-- MANAGE THE PACE -->
-            <div id="workplace-push">
-                <label for="customRange2" class="form-label"><h3>Pace</h3></label>
-                <div class="workplace-push-label">
-                    <div></div>
-                    <div>Eco</div>
-                    <div>--</div>
-                    <div>-</div>
-                    <div>Normal</div>
-                    <div>+</div>
-                    <div>++</div>
-                    <div>Push</div>
-                </div>
-                <div class="workplace-push-steps">
-                    
-                    <input type="range" class="form-range" min="0" max="6" id="customRange2">
-                </div>
-                <div class="modal-datas">
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#Push-infos">
-                        Infos
-                    </button>
-                </div>
-            </div>
-            <!-- FIN DE LA BOITE -->
-            <!-- MANAGE THE PACE -->
-            <div id="workplace-pits">
-                <label for="customRange2" class="form-label"><h3>Next Pit</h3></label>
-                Options au prochain pit
-                
-            </div>
-            <!-- FIN DE LA BOITE -->
-            <!-- MANAGE THE PACE -->
-            <div id="workplace-tires">
-                <label for="customRange2" class="form-label"><h3>Tires</h3></label>
-                
-                <div class="workplace-tires-options">
-                    <div class="workplace-tires-car">
-                        <div class="tires"><div class="tires-soft">Soft</div></div>
-                        <div class="tires"><div class="tires-soft">Soft</div></div>
-                        <div class="tires"><div class="tires-soft">Soft</div></div>
-                        <div class="tires_50"><div class="tires-soft">Soft</div></div>
-                    </div>
-                    <div>
-                        Next pit options :
-                        <input type="radio" class="btn-check" name="options-base" id="option1" autocomplete="off" checked>
-                        <label class="btn" for="option1">Keep</label>
-
-                        <input type="radio" class="btn-check" name="options-base" id="option2" autocomplete="off">
-                        <label class="btn" for="option2">Soft</label>
-
-                        <input type="radio" class="btn-check" name="options-base" id="option3" autocomplete="off" disabled>
-                        <label class="btn" for="option3">Medium</label>
-
-                        <input type="radio" class="btn-check" name="options-base" id="option4" autocomplete="off">
-                        <label class="btn" for="option4">Hard</label>
-
-                        <input type="radio" class="btn-check" name="options-base" id="option5" autocomplete="off">
-                        <label class="btn" for="option5">Inter.</label>
-
-                        <input type="radio" class="btn-check" name="options-base" id="option6" autocomplete="off">
-                        <label class="btn" for="option6">Wet</label>
-                    </div>
-                </div>
-            </div>
-            <!-- FIN DE LA BOITE -->
+          <div>LAP 1/70</div>
+          <div class="ranking-row" id="position-1">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-2">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-3">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-4">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-5">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-6">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-7">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-8">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-9">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-10">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-11">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
+          <div class="ranking-row" id="position-12">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+          </div>
         </div>
+      </aside>
     </main>
-    <footer class="text-bg-dark p-3">
-        <!-- Modal -->
-        <div class="modal fade" id="Push-infos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"  data-bs-theme="dark">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Push / Eco</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Augmenter ou diminuer le rythme à un impact direct sur la concentration du pilote, la vitesse d'usure et la température moyenne des pneus, la consommation d'essence, etc.
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <script src="scripts/time.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
+  </body>
 </html>

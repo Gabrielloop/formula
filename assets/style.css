@@ -1,147 +1,94 @@
 * {
   margin: 0px;
   padding: 0px;
-  overflow: hidden;
 }
-.navbar-brand::before {
-  content: "" !important;
-  background-image: url("images/formula.png") !important;
-  background-size: cover;
-  width: 120px !important;
-  height: 40px !important;
-  display: inline-block !important;
+
+:root {
+  --bg-color: rgb(192, 170, 170);
+  --bg-color-element: rgba(0, 0, 0, 0.5);
+  --text-color: #fff;
+  --border-color: rgba(255, 255, 255, 0.5);
+  --border-color-light: rgba(255, 255, 255, 0.8);
+  --text-color: rgb(255, 255, 255);
 }
+
 /* Aligner le titre avec la f1 */
-a.navbar-brand {
-}
+
 body {
   background-image: url("../assets/images/circuit.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
-  background-color: black;
-  color: rgb(255, 255, 255);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Racing Sans One", sans-serif;
+  font-weight: 300;
 }
-/* VISUEL DES POSITIONS POSITIONS */
 
-/* WORKPLACE */
-.container-workplace-perso {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-wrap: wrap-reverse;
-  justify-content: flex-end;
-  align-content: flex-start;
-  align-items: stretch;
-  position: absolute;
-  z-index: 200;
-  gap: 10px;
-}
-.container-workplace-perso > div {
-  border: 1px solid gray;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 1px 0 2px black;
-  width: max(300px, 30vw);
-  margin: 1em;
-  padding: 5px;
-}
-#workplace-push {
-  height: auto;
-  order: 0;
-}
-.workplace-push-steps {
-  padding: 1em;
-}
-.workplace-push-label {
-  display: grid;
-  grid-template-columns: 1.4em 1fr 1fr 1fr 1fr 1fr 1fr 1.6em;
-  margin-bottom: -1em;
-  width: 100%;
-  height: 5px;
-  background: rgb(27, 158, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(27, 158, 0, 1) 0%,
-    rgba(12, 14, 125, 1) 48%,
-    rgba(255, 0, 0, 1) 100%
-  );
-}
-.workplace-push-label > div:nth-child(n + 2) {
-  border-left: 2px solid rgba(255, 255, 255, 0.5);
-}
-.modal-datas {
-  display: flex;
-  flex-direction: row-reverse;
-}
-#workplace-tires {
-  height: auto;
-  order: 2;
-}
-.workplace-tires-car {
-  width: 100px;
-  height: 100px;
-  display: grid;
-  border: 1px solid black;
-  border-radius: 10px;
-  grid-template-columns: 1fr 1fr;
-  padding: 2px;
-  gap: 2px;
-  background-color: rgba(255, 255, 255, 0.5);
-  margin: auto;
-}
-.workplace-tires-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.tires {
-  background-color: rgb(31, 31, 31);
-  height: 100%;
-  width: 100%;
-  border: 2px solid rgb(31, 31, 31);
-  border-radius: 50%;
-  align-content: center;
-}
-.tires_50 {
-  background-color: rgb(31, 31, 31);
-  height: 100%;
-  width: 100%;
-  border: 2px solid rgb(112, 112, 112);
-  border-radius: 50%;
-  align-content: center;
-}
-.tires-soft {
-  border: 3px solid rgb(153, 15, 15);
-  border-radius: 50%;
-  width: 90%;
-  height: 90%;
-  margin: auto;
-  color: rgb(153, 15, 15);
-  align-content: center;
-  text-align: center;
-  font-weight: bolder;
-  font-size: smaller;
-}
 main {
-  display: grid;
-  grid-template-columns: 200px 1fr;
 }
 aside {
   display: block;
-  background-color: red;
-  width: 200px;
-  height: 100vh;
-  z-index: 210;
+  background-color: var(--bg-color-element);
+  width: 250px;
+  height: auto;
   position: relative;
+  top: 100px;
   left: 20px;
+  border-radius: 20px 0 0 20px;
+  border-top: 10px solid var(--border-color-light);
+  border-bottom: 10px solid var(--border-color-light);
+  border-left: 10px solid var(--border-color-light);
 }
 .ranking {
+  margin: 2px 0px 2px 2px;
+  background-color: var(--bg-color-element);
+  padding: 2px;
+  border-radius: 10px 0 0 10px;
+}
+.ranking-row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-gap: 5px;
-  padding: 5px;
-  margin: 5px;
-  border: 1px solid black;
-  background-color: rgba(255, 255, 255, 0.5);
+  grid-template-columns: 30px 30px 75px auto;
+  height: 25px;
+  width: 100%;
+  font-weight: 500;
+}
+.ranking-row div {
+  text-align: center;
+  align-content: center;
+}
+.ranking-row > div:first-child {
+  background-color: var(--bg-color-element);
+}
+.ranking > div:first-child > div:first-child {
+  border-radius: 10px 0 0 0;
+}
+.ranking > div:last-child > div:first-child {
+  border-radius: 0 0 0 10px;
+}
+.team-logo {
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.logo-f1-race-type {
+  display: flex;
+  align-items: end;
+}
+.logo-f1-race-type img {
+  width: 150px;
+  height: auto;
+}
+.ranking > div:nth-child(2) {
+  text-align: center;
+  font-size: x-large;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.5)
+  );
 }
