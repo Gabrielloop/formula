@@ -1,142 +1,147 @@
-*{
-    margin: 0px;
-    padding: 0px;
-    overflow: hidden;
+* {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
 }
-.navbar-brand::before{
-    content:'' !important;
-    background-image:url('images/formula.png') !important;
-    background-size: cover;
-    width:120px !important;
-    height:40px !important;
-    display:inline-block !important;
+.navbar-brand::before {
+  content: "" !important;
+  background-image: url("images/formula.png") !important;
+  background-size: cover;
+  width: 120px !important;
+  height: 40px !important;
+  display: inline-block !important;
 }
 /* Aligner le titre avec la f1 */
-a.navbar-brand{
+a.navbar-brand {
 }
-body{
-    background-image: url('../assets/images/circuit.png');
-    background-size:contain;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-color: black;
-    color: rgb(255, 255, 255);
+body {
+  background-image: url("../assets/images/circuit.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-color: black;
+  color: rgb(255, 255, 255);
 }
 /* VISUEL DES POSITIONS POSITIONS */
 
-
 /* WORKPLACE */
-.container-workplace-perso{
-    height:100vh;
-    width:100vw;
-    display: flex;
-    flex-wrap: wrap-reverse;
-    justify-content: flex-end;
-    align-content: flex-start;
-    align-items: stretch;
-    position: absolute;
-    z-index: 200;
-    gap: 10px;
+.container-workplace-perso {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-end;
+  align-content: flex-start;
+  align-items: stretch;
+  position: absolute;
+  z-index: 200;
+  gap: 10px;
 }
-.container-workplace-perso > div{
-    border: 1px solid gray;
-    border-radius: 10px;
-    background-color: rgba(255,255,255,0.5);
-    box-shadow: 1px 0 2px black;
-    width:max(300px,30vw);
-    margin:1em;
-    padding:5px;
+.container-workplace-perso > div {
+  border: 1px solid gray;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 1px 0 2px black;
+  width: max(300px, 30vw);
+  margin: 1em;
+  padding: 5px;
 }
-#workplace-push{
-    height:auto;
-    order:0;
+#workplace-push {
+  height: auto;
+  order: 0;
 }
-.workplace-push-steps{
-    padding:1em;
+.workplace-push-steps {
+  padding: 1em;
 }
-.workplace-push-label{
-    display:grid;
-    grid-template-columns: 1.4em 1fr 1fr 1fr 1fr 1fr 1fr 1.6em;
-    margin-bottom: -1em;
-    width:100%;
-    height:5px;
-    background: rgb(27,158,0);
-    background: linear-gradient(90deg, rgba(27,158,0,1) 0%, rgba(12,14,125,1) 48%, rgba(255,0,0,1) 100%);
+.workplace-push-label {
+  display: grid;
+  grid-template-columns: 1.4em 1fr 1fr 1fr 1fr 1fr 1fr 1.6em;
+  margin-bottom: -1em;
+  width: 100%;
+  height: 5px;
+  background: rgb(27, 158, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(27, 158, 0, 1) 0%,
+    rgba(12, 14, 125, 1) 48%,
+    rgba(255, 0, 0, 1) 100%
+  );
 }
-.workplace-push-label > div:nth-child(n + 2){
-    border-left: 2px solid rgba(255, 255, 255, 0.5);
+.workplace-push-label > div:nth-child(n + 2) {
+  border-left: 2px solid rgba(255, 255, 255, 0.5);
 }
-.modal-datas{
-    display:flex;
-    flex-direction: row-reverse;
+.modal-datas {
+  display: flex;
+  flex-direction: row-reverse;
 }
-#workplace-tires{
-    height:auto;
-    order:2;
+#workplace-tires {
+  height: auto;
+  order: 2;
 }
-.workplace-tires-car{
-    width:100px;
-    height:100px;
-    display: grid;
-    border: 1px solid black;
-    border-radius: 10px;
-    grid-template-columns: 1fr 1fr;
-    padding: 2px;
-    gap:2px;
-    background-color: rgba(255,255,255,0.5);
-    margin: auto;
+.workplace-tires-car {
+  width: 100px;
+  height: 100px;
+  display: grid;
+  border: 1px solid black;
+  border-radius: 10px;
+  grid-template-columns: 1fr 1fr;
+  padding: 2px;
+  gap: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: auto;
 }
-.workplace-tires-options{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.workplace-tires-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
-.tires{
-    background-color: rgb(31, 31, 31);
-    height:100%;
-    width:100%;
-    border: 2px solid rgb(31, 31, 31);
-    border-radius: 50%;
-    align-content: center;
+.tires {
+  background-color: rgb(31, 31, 31);
+  height: 100%;
+  width: 100%;
+  border: 2px solid rgb(31, 31, 31);
+  border-radius: 50%;
+  align-content: center;
 }
-.tires_50{
-    background-color: rgb(31, 31, 31);
-    height:100%;
-    width:100%;
-    border: 2px solid rgb(112, 112, 112);
-    border-radius: 50%;
-    align-content: center;
+.tires_50 {
+  background-color: rgb(31, 31, 31);
+  height: 100%;
+  width: 100%;
+  border: 2px solid rgb(112, 112, 112);
+  border-radius: 50%;
+  align-content: center;
 }
-.tires-soft{
-    border: 3px solid rgb(153, 15, 15);
-    border-radius: 50%;
-    width:90%;
-    height: 90%;
-    margin : auto;
-    color:rgb(153, 15, 15);
-    align-content: center;
-    text-align: center;
-    font-weight: bolder;
-    font-size: smaller;
+.tires-soft {
+  border: 3px solid rgb(153, 15, 15);
+  border-radius: 50%;
+  width: 90%;
+  height: 90%;
+  margin: auto;
+  color: rgb(153, 15, 15);
+  align-content: center;
+  text-align: center;
+  font-weight: bolder;
+  font-size: smaller;
 }
-main{
-    display: grid;
-    grid-template-columns: 200px 1fr;
+main {
+  display: grid;
+  grid-template-columns: 200px 1fr;
 }
 aside {
-    display: block;
-    background-color: red;
-    width : 200px;
-    height: 100vh;
-    z-index: 210;
-    position: relative;
+  display: block;
+  background-color: red;
+  width: 200px;
+  height: 100vh;
+  z-index: 210;
+  position: relative;
+  left: 20px;
 }
-.ranking{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 5px;
-    padding: 5px;
-    margin: 5px;
-    border: 1px solid black;
-    background-color: rgba(255,255,255,0.5);
+.ranking {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+gap: 5px;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid black;
+  background-color: rgba(255, 255, 255, 0.5);
 }
