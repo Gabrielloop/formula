@@ -16,37 +16,7 @@ a.navbar-brand{
 
 /* VISUEL DES POSITIONS POSITIONS */
 }
-.visual{
-    display: block;
-    position:absolute;
-    top:80px;
-    /* Se positionne sous la nav */
-    height:100vh;
-    width:100vw;
-    background-image: url('images/circuit.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: black;
-}
-.car{
-    background-image: url('images/formula.png');
-    background-size: cover;
-    height:50px;
-    width:150px;
-    display: block;
-    position:absolute;
-}
-.pos-1{
-    top:0em;
-    left:1em;
-    z-index: 10;
-}
-.pos-2{
-    top:3em;
-    left:0em;
-    z-index: 20;
-}
+
 /* WORKPLACE */
 .container-workplace-perso{
     height:100vh;
@@ -139,4 +109,14 @@ a.navbar-brand{
     text-align: center;
     font-weight: bolder;
     font-size: smaller;
+}
+main{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+}
+aside {
+    display: block;
+    background-color: red;
+    width : 200px;
+    height: 100vh;
 }
