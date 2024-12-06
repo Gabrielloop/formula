@@ -19,3 +19,12 @@ function createRanking(data, updateInterval) {
   return ranking;
 }
 
+function creatDiv() {
+const asideRef = document.querySelector('aside');
+const div = document.createElement('div');
+div.className = 'ranking';
+asideRef.appendChild(div);
+console.log("div", div);
+}
+
+creatDiv();
