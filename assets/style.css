@@ -128,6 +128,8 @@ aside {
     background-color: red;
     width : 200px;
     height: 100vh;
+    z-index: 210;
+    position: relative;
 }
 .ranking{
     display: grid;
