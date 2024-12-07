@@ -9,21 +9,27 @@
   --bg-color-element-over: rgba(61, 0, 0, 0.5);
   --text-color: #fff;
   --border-color: rgba(255, 255, 255, 0.5);
-  --border-color-light: rgba(255, 255, 255, 0.8);
+  --border-color-light: rgba(255, 255, 255, 0.2);
+  --border-color-go: rgba(0, 128, 21, 0.8);
   --text-color: rgb(255, 255, 255);
 }
-
+@font-face {
+  font-family: "Orbitron";
+  src: url("../assets/fonts/Orbitron-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+}
 /* Aligner le titre avec la f1 */
 
 body {
-  background-image: url("../assets/images/circuit.png");
-  background-size: contain;
+  background-image: url("../assets/images/fond.jpg");
+  background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: "Racing Sans One", sans-serif;
+  font-family: "Orbitron", sans-serif;
   font-weight: 300;
 }
 
@@ -60,6 +66,7 @@ aside {
 .ranking-row > div:first-child {
   background-color: var(--bg-color-element);
 }
+
 .ranking > div:first-child > div:first-child {
   border-radius: 10px 0 0 0;
 }
@@ -116,4 +123,57 @@ aside {
 }
 .ranking-display > button:hover {
   background-color: var(--bg-color-element-over);
+}
+/* Button styles */
+#lap-button-div {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: stretch;
+  align-items: center;
+}
+.lap-button {
+  display: flex;
+  height: 25px;
+  width: auto;
+  margin: 5px;
+}
+.left-part {
+  background-color: var(--bg-color-element);
+  border: 1px solid var(--border-color);
+  border-radius: 5px 0 0 5px;
+  border-right: 0px solid black;
+  color: var(--text-color);
+  font-size: 10px;
+  font-weight: 500;
+  justify-content: center;
+  align-content: center;
+  padding: 5px;
+}
+.animated-button {
+  position: relative;
+  display: inline-block;
+  font-size: 1.2rem;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color-light);
+  border-radius: 0 5px 5px 0;
+  background-color: var(--border-color-go);
+  background-image: url(../assets/images/motif.png);
+  background-repeat: repeat-x;
+  height: 25px;
+  width: 25px;
+  background-size: 25px 25px; /* Taille du motif */
+  cursor: pointer;
+  overflow: hidden;
+  animation: moveBackground 5s linear infinite; /* Animation continue */
+}
+
+/* Animation to move the background */
+@keyframes moveBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200px 0; /* Ajustez pour la vitesse du mouvement */
+  }
 }
