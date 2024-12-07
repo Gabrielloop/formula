@@ -26,8 +26,6 @@ body {
   font-weight: 300;
 }
 
-main {
-}
 aside {
   display: block;
   background-color: var(--bg-color-element);
@@ -91,4 +89,12 @@ aside {
     rgba(255, 255, 255, 0.2),
     rgba(255, 255, 255, 0.5)
   );
+}
+.ranking-display {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  height: 25px;
+  width: 100%;
+  font-weight: 500;
 }

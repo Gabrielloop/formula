@@ -132,10 +132,10 @@ const teams = [
 const lapResults = {
   lap1: [
     { idCar: 1, time: 90000, position: 1, pit: 0 },
-    { idCar: 2, time: 90100, position: 3, pit: 0 },
     { idCar: 3, time: 90050, position: 2, pit: 0 },
+    { idCar: 2, time: 90100, position: 3, pit: 0 },
     { idCar: 4, time: 90120, position: 4, pit: 0 },
-    { idCar: 5, time: 9015, position: 5, pit: 0 },
+    { idCar: 5, time: 90150, position: 5, pit: 0 },
     { idCar: 6, time: 90170, position: 6, pit: 0 },
     { idCar: 7, time: 90175, position: 7, pit: 0 },
     { idCar: 8, time: 90180, position: 8, pit: 0 },
