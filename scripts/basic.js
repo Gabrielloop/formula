@@ -8,8 +8,9 @@ function formatMilliseconds(ms) {
   return `${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
 }
 function formatMillisecondsToSeconds(ms) {
-  const seconds = Math.floor(ms / 1000); // Extraire les secondes entières
-  const milliseconds = ms % 1000; // Extraire les millisecondes restantes
+  const msAbs = Math.abs(ms);
+  const seconds = Math.floor(msAbs / 1000); // Extraire les secondes entières
+  const milliseconds = msAbs % 1000; // Extraire les millisecondes restantes
 
   // Formater les valeurs pour avoir toujours deux chiffres pour les secondes et trois pour les millisecondes
   const formattedSeconds = String(seconds).padStart(2, "0");

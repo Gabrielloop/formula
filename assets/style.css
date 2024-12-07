@@ -6,6 +6,7 @@
 :root {
   --bg-color: rgb(192, 170, 170);
   --bg-color-element: rgba(0, 0, 0, 0.5);
+  --bg-color-element-over: rgba(61, 0, 0, 0.5);
   --text-color: #fff;
   --border-color: rgba(255, 255, 255, 0.5);
   --border-color-light: rgba(255, 255, 255, 0.8);
@@ -97,4 +98,22 @@ aside {
   height: 25px;
   width: 100%;
   font-weight: 500;
+}
+.ranking-hidden-opt {
+  display: none;
+  width: 0px;
+}
+.ranking-display > button {
+  background-color: var(--bg-color-element);
+  border: 1px solid var(--border-color);
+  border-radius: 1px;
+  color: var(--text-color);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px;
+  margin: 2px;
+  border-radius: 5px;
+}
+.ranking-display > button:hover {
+  background-color: var(--bg-color-element-over);
 }
