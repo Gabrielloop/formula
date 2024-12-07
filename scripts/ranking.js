@@ -14,4 +14,4 @@ function createRanking(array) {
   
 }
 
-createRanking(drivers)
+createRanking(drivers);
