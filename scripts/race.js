@@ -182,24 +182,54 @@ function updateCarPosition(car) {
 }
 
 function updateLiveRanking() {
+  // Trier les voitures selon les critères existants
   cars.sort((a, b) => {
     if (b.laps !== a.laps) return b.laps - a.laps;
     return b.angle - a.angle;
   });
 
-  const rankingBody = document.getElementById("ranking-body");
-  rankingBody.innerHTML = "";
-
+  // Pour chaque voiture, mettre à jour le bloc correspondant
   cars.forEach((car, index) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${car.pilotFirstName} ${car.pilotLastName} (${
-      car.pilotShortCode
-    })</td>
-        <td>${car.laps}</td>
-    `;
-    rankingBody.appendChild(row);
+    const position = index + 1;
+    const rowEl = document.getElementById(`position-${position}`);
+
+    if (rowEl) {
+      // Mettre à jour la position
+      const positionEl = rowEl.querySelector(".rank-position");
+      if (positionEl) positionEl.textContent = position;
+
+      // Mettre à jour l'équipe
+      const teamEl = rowEl.querySelector(".rank-team");
+      if (teamEl) {
+        // Retrouver l'objet de l'équipe pour la voiture en cours
+        const teamInfo = teams.find((t) => t.name === car.team);
+        if (teamInfo) {
+          teamEl.textContent = ""; // Pas de texte, juste la couleur
+          teamEl.style.backgroundColor = teamInfo.color;
+        }
+      }
+
+      // Mettre à jour le nom du pilote
+      const nameEl = rowEl.querySelector(".rank-name");
+      if (nameEl) {
+        nameEl.textContent = `${car.pilotShortCode}`;
+      }
+
+      // Mettre à jour les tours
+      const timeEl = rowEl.querySelector(".rank-lap");
+      if (timeEl) {
+        // Par exemple, afficher le nombre de tours
+        timeEl.textContent = `${car.laps}`;
+      }
+
+      // Mettre à jour le gap si nécessaire
+      const gapEl = rowEl.querySelector(".rank-gap");
+      if (gapEl) {
+        // Vous pouvez calculer l'écart avec la voiture de tête en fonction de la distance/temps.
+        // Ici, on laisse vide ou on affiche un texte par défaut.
+        gapEl.textContent = "";
+      }
+    }
   });
 }
 
