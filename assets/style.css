@@ -218,7 +218,6 @@ nav > div:hover {
 .article {
   width: 100%;
   height: auto;
-  background-color: yellow;
 }
 .article-display {
   display: none;
@@ -226,27 +225,71 @@ nav > div:hover {
 .article-gap {
   display: block;
 }
-#line-container {
-  width: 80%;
-  height: 10px;
-  background-color: #f3f3f3;
-  border-radius: 5px;
-  margin: 40px auto;
+#circuit {
+  width: 300px;
+  height: 300px;
+  border: 5px solid #333;
+  border-radius: 50%;
+  margin: 50px auto;
   position: relative;
 }
 
-#moving-circle {
+.car {
   width: 20px;
   height: 20px;
-  background-color: #4caf50;
+  background-color: red;
   border-radius: 50%;
   position: absolute;
-  top: -5px; /* Centrer le cercle verticalement sur la ligne */
-  left: 0;
-  transition: left 0.1s linear;
+  transform: translate(-50%, -50%);
 }
 
-#timer {
-  font-size: 24px;
+.car:nth-child(2) {
+  background-color: blue;
+}
+.car:nth-child(3) {
+  background-color: green;
+}
+.car:nth-child(4) {
+  background-color: orange;
+}
+
+#start-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#start-button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+#control-panel {
   margin-top: 20px;
+}
+
+#results {
+  margin-top: 30px;
+  display: none;
+}
+
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+th,
+td {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #f3f3f3;
 }

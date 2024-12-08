@@ -9,15 +9,13 @@
     <meta name="author" content="Gabriel HENIN" />
     <meta viewport="width=device-width, initial-scale=1.0" />
     <title>Portfolio Gabriel HENIN</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="assets/race.css" />
     <link rel="stylesheet" href="assets/style.css" />
     <script src="scripts/basic.js" defer></script>
     <script src="scripts/datas.js" defer></script>
     <script src="scripts/changerank.js" defer></script>
     <script src="scripts/ranking.js" defer></script>
+    <script type="module" src="scripts/race.js" defer></script>
   </head>
   <body>
     <header>
@@ -136,46 +134,107 @@
           <div>gap</div>
         </nav>
         <article class="article article-display article-gap">
-          <h1>Chronomètre avec Cercle Mobile</h1>
-    <div id="line-container">
-        <div id="moving-circle"></div>
-    </div>
-    <div id="timer">0s</div>
-    <button onclick="startTimer(90)">Démarrer le Chronomètre</button>
-
-    <script>
-        function startTimer(duration) {
-            const movingCircle = document.getElementById('moving-circle');
-            const timerDisplay = document.getElementById('timer');
-            const lineContainer = document.getElementById('line-container');
-
-            const lineWidth = lineContainer.offsetWidth; // Largeur totale de la ligne
-            const circleWidth = movingCircle.offsetWidth; // Largeur du cercle
-            const maxPosition = lineWidth - circleWidth; // Position max du cercle
-
-            let currentTime = 0;
-
-            // Calcul de l'incrément de position
-            const interval = 1000; // 1 seconde
-            const step = maxPosition / duration;
-
-            // Mise à jour de la position et du temps
-            const intervalId = setInterval(() => {
-                currentTime++;
-                const newPosition = currentTime * step;
-
-                movingCircle.style.left = `${newPosition}px`;
-                timerDisplay.textContent = `${currentTime}s`;
-
-                if (currentTime >= duration) {
-                    clearInterval(intervalId);
-                    timerDisplay.textContent = "Terminé!";
-                }
-            }, interval);
-        }
-    </script>
-        </article>
-        <article class="article article-display"></article>
+          <h1>Simulation de course de F1</h1>
+          <div id="controls">
+              <div id="timer">00:00</div>
+              <button id="start-button">Lancer la course</button>
+              <button id="replay-button" disabled>Rejouer la course</button>
+              <br><br>
+      
+              <label for="weather-select">Conditions météo : </label>
+              <select id="weather-select">
+                  <option value="sunny">Soleil</option>
+                  <option value="rainy">Pluie</option>
+                  <option value="foggy">Brouillard</option>
+              </select>
+              <br><br>
+      
+              <label for="circuit-select">Choix du circuit : </label>
+              <select id="circuit-select">
+                  <option value="default">Standard</option>
+                  <option value="small">Petit circuit</option>
+                  <option value="large">Grand circuit</option>
+              </select>
+              <br><br>
+      
+              <label for="car-select">Sélectionnez une voiture à contrôler : </label>
+              <select id="car-select">
+                  <option value="car1">Voiture 1</option>
+                  <option value="car2">Voiture 2</option>
+                  <option value="car3">Voiture 3</option>
+                  <option value="car4">Voiture 4</option>
+              </select>
+              <br><br>
+      
+              <label for="speed-control">Vitesse manuelle : </label>
+              <input id="speed-control" type="range" min="1" max="10" step="0.1" value="5">
+              <span id="speed-value">5</span>
+              <br><br>
+      
+              <h3>Influences Pilote</h3>
+              <label for="pilotRhythm">Rythme du pilote (0.8 à 1.2) :</label>
+              <input type="range" id="pilotRhythm" min="0.8" max="1.2" step="0.01" value="1">
+              <span id="pilotRhythmValue">1</span>
+              <br><br>
+      
+              <label for="tireSaving">Sauvegarde des pneus :</label>
+              <input type="checkbox" id="tireSaving">
+              <br><br>
+      
+              <button id="batteryBoost">Boost Batterie (x1.2 pendant 5s)</button>
+          </div>
+      
+          <div id="circuit">
+              <div id="car1" class="car">1</div>
+              <div id="car2" class="car">11</div>
+              <div id="car3" class="car">16</div>
+              <div id="car4" class="car">55</div>
+              <div id="car5" class="car">44</div>
+              <div id="car6" class="car">63</div>
+              <div id="car7" class="car">14</div>
+              <div id="car8" class="car">18</div>
+              <div id="car9" class="car">4</div>
+              <div id="car10" class="car">81</div>
+              <div id="car11" class="car">31</div>
+              <div id="car12" class="car">10</div>
+              <div id="car13" class="car">20</div>
+              <div id="car14" class="car">27</div>
+              <div id="car15" class="car">77</div>
+              <div id="car16" class="car">24</div>
+              <div id="car17" class="car">22</div>
+              <div id="car18" class="car">21</div>
+              <div id="car19" class="car">23</div>
+              <div id="car20" class="car">2</div>
+          </div>
+      
+          <div id="live-ranking">
+              <h2>Classement en temps réel</h2>
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Position</th>
+                          <th>Voiture</th>
+                          <th>Tours</th>
+                      </tr>
+                  </thead>
+                  <tbody id="ranking-body"></tbody>
+              </table>
+          </div>
+      
+          <div id="results">
+              <h2>Résultats de la course</h2>
+              <table border="1">
+                  <thead>
+                      <tr>
+                          <th>Position</th>
+                          <th>Voiture</th>
+                          <th>Temps</th>
+                          <th>Tour le plus rapide</th>
+                      </tr>
+                  </thead>
+                  <tbody id="results-body"></tbody>
+              </table>
+          </div>
         <article class="article article-display"></article>
       </section>
     </main>
