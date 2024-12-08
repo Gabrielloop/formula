@@ -1,8 +1,8 @@
 // script.js
 import { cars, teams } from "./data.js";
 
-const fastestSpeed = 360 / 90; // 4 deg/s
-const slowestSpeed = 360 / 91; // environ 3.956 deg/s
+const fastestSpeed = 360 / 80; // 4 deg/s
+const slowestSpeed = 360 / 100; // environ 3.956 deg/s
 
 cars.forEach((car) => {
   car.speed = slowestSpeed + Math.random() * (fastestSpeed - slowestSpeed);
