@@ -136,7 +136,44 @@
           <div>gap</div>
         </nav>
         <article class="article article-display article-gap">
-          gap content
+          <h1>Chronomètre avec Cercle Mobile</h1>
+    <div id="line-container">
+        <div id="moving-circle"></div>
+    </div>
+    <div id="timer">0s</div>
+    <button onclick="startTimer(90)">Démarrer le Chronomètre</button>
+
+    <script>
+        function startTimer(duration) {
+            const movingCircle = document.getElementById('moving-circle');
+            const timerDisplay = document.getElementById('timer');
+            const lineContainer = document.getElementById('line-container');
+
+            const lineWidth = lineContainer.offsetWidth; // Largeur totale de la ligne
+            const circleWidth = movingCircle.offsetWidth; // Largeur du cercle
+            const maxPosition = lineWidth - circleWidth; // Position max du cercle
+
+            let currentTime = 0;
+
+            // Calcul de l'incrément de position
+            const interval = 1000; // 1 seconde
+            const step = maxPosition / duration;
+
+            // Mise à jour de la position et du temps
+            const intervalId = setInterval(() => {
+                currentTime++;
+                const newPosition = currentTime * step;
+
+                movingCircle.style.left = `${newPosition}px`;
+                timerDisplay.textContent = `${currentTime}s`;
+
+                if (currentTime >= duration) {
+                    clearInterval(intervalId);
+                    timerDisplay.textContent = "Terminé!";
+                }
+            }, interval);
+        }
+    </script>
         </article>
         <article class="article article-display"></article>
         <article class="article article-display"></article>

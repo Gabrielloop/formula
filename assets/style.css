@@ -226,3 +226,27 @@ nav > div:hover {
 .article-gap {
   display: block;
 }
+#line-container {
+  width: 80%;
+  height: 10px;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  margin: 40px auto;
+  position: relative;
+}
+
+#moving-circle {
+  width: 20px;
+  height: 20px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px; /* Centrer le cercle verticalement sur la ligne */
+  left: 0;
+  transition: left 0.1s linear;
+}
+
+#timer {
+  font-size: 24px;
+  margin-top: 20px;
+}
