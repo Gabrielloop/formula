@@ -1,6 +1,6 @@
 function hideAllRankingOpt() {
   const rankingOpt = document.querySelectorAll(
-    ".ranking-row > div:nth-last-child(-n+2)"
+    ".ranking-row > div:nth-last-child(-n+3)"
   );
   rankingOpt.forEach((element) => {
     element.classList.add("ranking-hidden-opt");

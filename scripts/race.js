@@ -1,14 +1,9 @@
 // script.js
 import { cars, teams } from "./data.js";
 
-// cars.forEach((car) => {
-//   car.speed = 20; // Test: vitesse élevée pour s'assurer d'un tour rapide
-//   car.currentSpeed = 0;
-// });
 const fastestSpeed = 360 / 90; // 4 deg/s
 const slowestSpeed = 360 / 91; // environ 3.956 deg/s
 
-// Pour chaque voiture, on assigne une vitesse entre slowestSpeed et fastestSpeed
 cars.forEach((car) => {
   car.speed = slowestSpeed + Math.random() * (fastestSpeed - slowestSpeed);
 });
@@ -25,14 +20,18 @@ let fastestLapTime = Infinity;
 let weather = "sunny";
 let raceData = [];
 
-// Mise à jour du timer
+// Variables pour pause/avance rapide
+let normalInterval = 1000;
+let fastInterval = 300;
+let isPaused = false;
+let isFastForward = false;
+
 function updateTimerDisplay() {
   const minutes = String(Math.floor(raceTime / 60)).padStart(2, "0");
   const seconds = String(raceTime % 60).padStart(2, "0");
   document.getElementById("timer").textContent = `${minutes}:${seconds}`;
 }
 
-// Enregistrement des données pour le replay
 function recordRaceData() {
   if (!raceFinished && raceTime > 0) {
     const snapshot = cars.map((car) => ({
@@ -82,8 +81,8 @@ function adjustSpeedForWeather() {
   });
 }
 
-// Gestion des collisions
-let collisionFrequency = 0.01; // 10% de chance qu’une collision détectée soit réelle
+// Collisions
+let collisionFrequency = 0.01;
 function handleCollisions() {
   for (let i = 0; i < cars.length; i++) {
     for (let j = i + 1; j < cars.length; j++) {
@@ -93,65 +92,51 @@ function handleCollisions() {
       let angleDiff = Math.abs(carA.angle - carB.angle);
       if (angleDiff > 180) angleDiff = 360 - angleDiff;
 
-      // Collision détectée par l'angle
       if (
         angleDiff < 2 &&
         raceTime > carA.collisionCooldown &&
         raceTime > carB.collisionCooldown
       ) {
-        // Test de rareté
         if (Math.random() < collisionFrequency) {
-          // Collision réelle, déterminons la gravité
           const severityRoll = Math.random();
-          // Ex : 0.0 - 0.5 = touchette, 0.5 - 0.9 = moyenne, 0.9 - 1.0 = sévère
           if (severityRoll < 0.99) {
-            // Touchette
             console.log(
               `Touchette entre ${carA.pilotLastName} et ${carB.pilotLastName}`
             );
-            // Légère pénalité : ralentissement 1 seconde ?
             carA.collisionEndTime = raceTime + 1;
             carB.collisionEndTime = raceTime + 1;
           } else if (severityRoll < 0.995) {
-            // Collision moyenne
             console.log(
               `Collision moyenne entre ${carA.pilotLastName} et ${carB.pilotLastName} - Drapeau Jaune !`
             );
             showFlag("yellow-flag");
-            // Plus grande pénalité, 3 secondes de ralentissement
             carA.collisionEndTime = raceTime + 3;
             carB.collisionEndTime = raceTime + 3;
           } else {
-            // Collision sévère
             console.log(
               `Collision sévère entre ${carA.pilotLastName} et ${carB.pilotLastName} - Drapeau Rouge !`
             );
             showFlag("red-flag");
-
-            // Toutes les voitures retournent au départ
             returnAllCarsToStart();
             abandonCar(carB);
           }
 
-          // Définir un cooldown avant une nouvelle collision pour ces voitures
           carA.collisionCooldown = raceTime + 5;
           carB.collisionCooldown = raceTime + 5;
-        } else {
-          // Collision potentielle, mais pas réelle (évitée), on peut ignorer
         }
       }
     }
   }
 }
+
 function returnAllCarsToStart() {
   cars.forEach((car) => {
     car.totalAngle = 0;
     car.angle = 0;
     car.currentSpeed = 0;
-    car.collisionEndTime = 0; // Plus de pénalité
-    car.pitStopTime = 0; // Plus de pit stop en cours
+    car.collisionEndTime = 0;
+    car.pitStopTime = 0;
 
-    // Mise à jour de la position visuelle
     const radians = (car.angle * Math.PI) / 180;
     const x = centerX + circuitRadius * Math.cos(radians);
     const y = centerY + circuitRadius * Math.sin(radians);
@@ -162,6 +147,7 @@ function returnAllCarsToStart() {
     }
   });
 }
+
 function showFlag(flagId, duration = 3000) {
   const flagEl = document.getElementById(flagId);
   if (flagEl) {
@@ -171,31 +157,27 @@ function showFlag(flagId, duration = 3000) {
     }, duration);
   }
 }
+
 function abandonCar(car) {
   car.speed = 0;
   car.currentSpeed = 0;
   car.collisionEndTime = Infinity;
-
-  // Masquer la voiture visuellement
   const carElement = document.getElementById(car.id);
   if (carElement) {
     carElement.style.display = "none";
   }
-
   console.log(
     `${car.pilotLastName} abandonne la course et est invisible sur la piste !`
   );
 }
-// Mise à jour de la position de la voiture
+
 function updateCarPosition(car) {
   if (raceFinished) return;
 
-  // Paramètres pour la distance de sécurité et le dépassement
-  const desiredGap = 5; // écart de sécurité en degrés
-  const overtakeFrequency = 0.3; // probabilité de tenter un dépassement si opportunité
-  const slowSpeedThreshold = 1; // vitesse considérée comme lente (pour tenter le dépassement)
+  const desiredGap = 5;
+  const overtakeFrequency = 0.3;
+  const slowSpeedThreshold = 1;
 
-  // Gestion pit stop
   if (raceTime < car.pitStopTime) {
     car.currentSpeed = 0;
   }
@@ -208,7 +190,6 @@ function updateCarPosition(car) {
 
   if (!car.boostEnd) car.boostEnd = 0;
 
-  // Ajustements si voiture contrôlée
   if (car.id === selectedCarId) {
     targetSpeed *= pilotRhythm;
     if (tireSaving) {
@@ -221,55 +202,43 @@ function updateCarPosition(car) {
 
   if (!car.currentSpeed) car.currentSpeed = 0;
 
-  // Gestion de la distance de sécurité si on a une voiture devant
   if (car.nextCar) {
     const angleDiff = car.angleDiff;
-    // Si trop proche, ralentir
     if (angleDiff < desiredGap && car.nextCar.currentSpeed > 0) {
       const slowdownFactor = (desiredGap - angleDiff) / desiredGap;
       targetSpeed *= 1 - 0.5 * slowdownFactor;
     }
 
-    // Opportunité de dépassement si la voiture devant est lente
     if (
       car.nextCar.currentSpeed < slowSpeedThreshold &&
       angleDiff < 10 &&
       Math.random() < overtakeFrequency
     ) {
-      // Tentative de dépassement: léger boost de vitesse
       targetSpeed *= 1.1;
     }
   }
 
-  // Ajustement progressif de la vitesse
   car.currentSpeed += (targetSpeed - car.currentSpeed) * 0.2;
 
   let effectiveSpeed = car.currentSpeed;
 
-  // Collision
   if (raceTime < car.collisionEndTime) {
     effectiveSpeed *= 0.5;
   }
 
-  // Pit stop
   if (raceTime < car.pitStopTime) {
     effectiveSpeed = 0;
   }
 
-  // Ancien total d'angle avant mise à jour
   const oldTotalAngle = car.totalAngle;
-  // Mise à jour de l'angle cumulé
   car.totalAngle += effectiveSpeed;
 
-  // Angle pour l'affichage sur la piste
   car.angle = car.totalAngle % 360;
 
-  // Détection de tour
   const oldFullLaps = Math.floor(oldTotalAngle / 360);
   const newFullLaps = Math.floor(car.totalAngle / 360);
 
   if (newFullLaps > oldFullLaps) {
-    // Un nouveau tour est complété
     car.laps++;
     const lapTime = raceTime - (car.lapTimes.reduce((a, b) => a + b, 0) || 0);
     car.lapTimes.push(lapTime);
@@ -302,7 +271,6 @@ function updateCarPosition(car) {
     }
   }
 
-  // Mise à jour de la position visuelle
   const radians = (car.angle * Math.PI) / 180;
   const x = centerX + circuitRadius * Math.cos(radians);
   const y = centerY + circuitRadius * Math.sin(radians);
@@ -311,25 +279,26 @@ function updateCarPosition(car) {
   carElement.style.left = `${x}px`;
   carElement.style.top = `${y}px`;
 }
+
 function updateLiveRanking() {
-  // Trier les voitures selon vos critères (déjà fait avant)
+  // Tri des voitures
   cars.sort((a, b) => {
     if (b.laps !== a.laps) return b.laps - a.laps;
     return b.angle - a.angle;
   });
 
-  const leader = cars[0];
+  const leader = cars[0]; // La première voiture du tableau est le leader
 
   cars.forEach((car, index) => {
     const position = index + 1;
     const rowEl = document.getElementById(`position-${position}`);
 
     if (rowEl) {
-      // Mettre à jour la position
+      // Position
       const positionEl = rowEl.querySelector(".rank-position");
       if (positionEl) positionEl.textContent = position;
 
-      // Mettre à jour l'équipe (couleur)
+      // Couleur de l'équipe
       const teamEl = rowEl.querySelector(".rank-team");
       if (teamEl) {
         const teamInfo = teams.find((t) => t.name === car.team);
@@ -346,37 +315,55 @@ function updateLiveRanking() {
       }
 
       // Tours effectués
-      const timeEl = rowEl.querySelector(".rank-lap");
-      if (timeEl) {
-        timeEl.textContent = `${car.laps}`;
+      const lapEl = rowEl.querySelector(".rank-lap");
+      if (lapEl) {
+        lapEl.textContent = `${car.laps}`;
       }
 
-      // Affichage du gap
+      // Écart avec la voiture précédente (rank-time)
+      const timeEl = rowEl.querySelector(".rank-time");
+      if (timeEl) {
+        if (index === 0) {
+          // Le leader n'a pas de précédente, donc pas d'écart avec la voiture précédente
+          timeEl.textContent = "";
+        } else {
+          const prevCar = cars[index - 1];
+          let angleDiffPrev = prevCar.totalAngle - car.totalAngle;
+          if (angleDiffPrev < 0) {
+            angleDiffPrev += 360;
+          }
+
+          let timeGapPrev = 0;
+          if (prevCar.currentSpeed > 0) {
+            timeGapPrev = angleDiffPrev / prevCar.currentSpeed;
+          }
+
+          timeEl.textContent = `${timeGapPrev.toFixed(1)}s`;
+        }
+      }
+
+      // Écart avec le leader (rank-gap)
       const gapEl = rowEl.querySelector(".rank-gap");
       if (gapEl) {
         if (index === 0) {
           // Le leader n'a pas d'écart avec lui-même
           gapEl.textContent = "";
         } else {
-          // Calcul de l'écart
-          let angleDiff = leader.totalAngle - car.totalAngle;
-          if (angleDiff < 0) {
-            angleDiff += 360; // Si négatif, on ajoute un tour (360°) pour obtenir la bonne différence
+          let angleDiffLeader = leader.totalAngle - car.totalAngle;
+          if (angleDiffLeader < 0) {
+            angleDiffLeader += 360;
           }
 
-          let timeGap = 0;
-          // On divise l'écart angulaire par la vitesse du leader
-          // pour obtenir un écart temporel approximatif
+          let timeGapLeader = 0;
           if (leader.currentSpeed > 0) {
-            timeGap = angleDiff / leader.currentSpeed;
+            timeGapLeader = angleDiffLeader / leader.currentSpeed;
           }
 
-          // Affichage de l'écart en secondes (arrondi à une décimale)
-          gapEl.textContent = `${timeGap.toFixed(1)}s`;
+          gapEl.textContent = `${timeGapLeader.toFixed(1)}s`;
         }
       }
 
-      // Si meilleur tour, surlignage (déjà présent dans votre code)
+      // Meilleur tour
       if (car.fastestLap) {
         rowEl.classList.add("fastest-lap-row");
       } else {
@@ -417,6 +404,18 @@ function displayResults() {
   resultsDiv.style.display = "block";
 }
 
+// Nouvelle fonction pour mettre à jour la course
+function updateRace() {
+  if (raceFinished) return;
+  if (isPaused) return; // Si en pause, on ne fait rien
+  raceTime++;
+  updateTimerDisplay();
+  cars.forEach(updateCarPosition);
+  handleCollisions();
+  updateLiveRanking();
+  recordRaceData();
+}
+
 function startRace() {
   const startButton = document.getElementById("start-button");
   startButton.disabled = true;
@@ -445,9 +444,7 @@ function startRace() {
       break;
   }
 
-  // Espace entre les voitures en degrés
-  const angleSpacing = 2;
-
+  const angleSpacing = 1;
   cars.forEach((car, index) => {
     car.totalAngle = index * angleSpacing;
     car.angle = car.totalAngle % 360;
@@ -463,7 +460,6 @@ function startRace() {
     car.currentSpeed = 0;
     car.boostEnd = 0;
 
-    // Mise à jour de la position visuelle initiale
     const radians = (car.angle * Math.PI) / 180;
     const x = centerX + circuitRadius * Math.cos(radians);
     const y = centerY + circuitRadius * Math.sin(radians);
@@ -476,17 +472,34 @@ function startRace() {
 
   adjustSpeedForWeather();
 
-  raceInterval = setInterval(() => {
-    raceTime++;
-    updateTimerDisplay();
-    cars.forEach(updateCarPosition);
-    handleCollisions();
-    updateLiveRanking();
-    recordRaceData();
-  }, 1000);
+  raceInterval = setInterval(updateRace, normalInterval);
 }
 
-// Mise à jour des couleurs selon l'équipe après le chargement du DOM
+// Boutons pause et avance rapide
+document.getElementById("pause-button").addEventListener("click", () => {
+  if (isPaused) {
+    // Reprendre
+    isPaused = false;
+  } else {
+    // Mettre en pause
+    isPaused = true;
+  }
+});
+
+document.getElementById("fast-forward-button").addEventListener("click", () => {
+  if (isFastForward) {
+    // Revenir à la vitesse normale
+    isFastForward = false;
+    clearInterval(raceInterval);
+    raceInterval = setInterval(updateRace, normalInterval);
+  } else {
+    // Passer en avance rapide
+    isFastForward = true;
+    clearInterval(raceInterval);
+    raceInterval = setInterval(updateRace, fastInterval);
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   cars.forEach((car) => {
     const carElement = document.getElementById(car.id);
