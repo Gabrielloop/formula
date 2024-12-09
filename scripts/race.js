@@ -1,24 +1,26 @@
 // script.js
 import { cars, teams } from "./data.js";
+const fastestSpeed = 360 / 80; // 4 deg/s
+const slowestSpeed = 360 / 100; // environ 3.956 deg/s
 
-function adaptSpeed() {
-  const fastestSpeed = 360 / 80; // 4 deg/s
-  const slowestSpeed = 360 / 100; // environ 3.956 deg/s
+cars.forEach((car) => {
+  const baseSpeed =
+    slowestSpeed + Math.random() * (fastestSpeed - slowestSpeed);
 
-  cars.forEach((car) => {
-    car.speed = slowestSpeed + Math.random() * (fastestSpeed - slowestSpeed);
-  });
-}
-adaptSpeed();
+  // Trouver l'équipe de la voiture
+  const teamInfo = teams.find((team) => team.name === car.team);
+
+  // Utiliser la performance de l'équipe pour ajuster la vitesse
+  const teamPerformance = teamInfo?.performance || 1; // Valeur par défaut de 1 si l'équipe n'est pas trouvée
+  car.speed = baseSpeed * teamPerformance;
+});
 
 let circuitRadius = 150;
 let centerX = 150;
 let centerY = 150;
 let maxLaps = 3;
 let raceInterval;
-// ==== Utiliser dans updateTimerDisplay : temps de course
 let raceTime = 0;
-// ====
 let raceFinished = false;
 let results = [];
 let fastestLapTime = Infinity;
@@ -31,11 +33,8 @@ let fastInterval = 300;
 let isPaused = false;
 let isFastForward = false;
 
-function updateTimerDisplay() {
-  const minutes = String(Math.floor(raceTime / 60)).padStart(2, "0");
-  const seconds = String(raceTime % 60).padStart(2, "0");
-  document.getElementById("timer").textContent = `${minutes}:${seconds}`;
-}
+// Collisions
+let collisionFrequency = 0.001;
 
 function recordRaceData() {
   if (!raceFinished && raceTime > 0) {
@@ -47,7 +46,13 @@ function recordRaceData() {
     raceData.push(snapshot);
   }
 }
-// controle
+
+function updateTimerDisplay() {
+  const minutes = String(Math.floor(raceTime / 60)).padStart(2, "0");
+  const seconds = String(raceTime % 60).padStart(2, "0");
+  document.getElementById("timer").textContent = `${minutes}:${seconds}`;
+}
+
 function replayRace() {
   let replayIndex = 0;
   const replayInterval = setInterval(() => {
@@ -86,8 +91,6 @@ function adjustSpeedForWeather() {
   });
 }
 
-// Collisions
-let collisionFrequency = 0.01;
 function handleCollisions() {
   for (let i = 0; i < cars.length; i++) {
     for (let j = i + 1; j < cars.length; j++) {
@@ -308,7 +311,7 @@ function updateLiveRanking() {
       if (teamEl) {
         const teamInfo = teams.find((t) => t.name === car.team);
         if (teamInfo) {
-          teamEl.textContent = "";
+          teamEl.textContent = car.number;
           teamEl.style.backgroundColor = teamInfo.color;
         }
       }
@@ -412,7 +415,7 @@ function displayResults() {
 // Nouvelle fonction pour mettre à jour la course
 function updateRace() {
   if (raceFinished) return;
-  if (isPaused) return; // Si en pause, on ne fait rien
+  if (isPaused) return;
   raceTime++;
   updateTimerDisplay();
   cars.forEach(updateCarPosition);
@@ -426,12 +429,6 @@ function startRace() {
   startButton.disabled = true;
   document.getElementById("replay-button").disabled = true;
   document.getElementById("results").style.display = "none";
-
-  raceTime = 0;
-  raceFinished = false;
-  results = [];
-  fastestLapTime = Infinity;
-  raceData = [];
 
   const selectedCircuit = document.getElementById("circuit-select").value;
   switch (selectedCircuit) {
@@ -449,11 +446,16 @@ function startRace() {
       break;
   }
 
-  const angleSpacing = 1;
-  cars.forEach((car, index) => {
-    car.totalAngle = index * angleSpacing;
-    car.angle = car.totalAngle % 360;
+  // Au lieu de const angleSpacing = 1;
+  const angleSpacing = 1; // Vous pouvez ajuster cet écart selon vos besoins
 
+  cars.forEach((car) => {
+    // Utilisez car.startingPosition au lieu de index
+    car.totalAngle = (car.startingPosition - 1) * angleSpacing;
+    car.angle = car.totalAngle % 360;
+    // let newPosition = cars.length + 1 - car.startingPosition;
+
+    // Réinitialisation des propriétés de la voiture
     car.laps = 0;
     car.lapTimes = [];
     car.totalTime = 0;
@@ -465,9 +467,12 @@ function startRace() {
     car.currentSpeed = 0;
     car.boostEnd = 0;
 
+    // Calcul des positions x et y
     const radians = (car.angle * Math.PI) / 180;
     const x = centerX + circuitRadius * Math.cos(radians);
     const y = centerY + circuitRadius * Math.sin(radians);
+
+    // Mise à jour de la position visuelle de la voiture
     const carElement = document.getElementById(car.id);
     if (carElement) {
       carElement.style.left = `${x}px`;
@@ -549,4 +554,10 @@ document.getElementById("batteryBoost").addEventListener("click", () => {
 document.getElementById("start-button").addEventListener("click", startRace);
 document.getElementById("replay-button").addEventListener("click", () => {
   replayRace();
+});
+
+import { generateRandomGrid } from "./grid.js";
+
+document.getElementById("generate-grid").addEventListener("click", () => {
+  generateRandomGrid();
 });

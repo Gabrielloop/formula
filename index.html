@@ -11,9 +11,8 @@
     <title>Portfolio Gabriel HENIN</title>
     <link rel="stylesheet" href="assets/race.css" />
     <link rel="stylesheet" href="assets/style.css" />
-    <script src="scripts/basic.js" defer></script>
-    <script src="scripts/ranking.js" defer></script>
     <script type="module" src="scripts/race.js" defer></script>
+    <script src="scripts/ranking.js" defer></script>
   </head>
   <body>
     <header>
@@ -313,6 +312,12 @@
                   </thead>
                   <tbody id="results-body"></tbody>
               </table>
+          </div>
+          <div id="controls">
+            <button id="generate-grid">Générer une grille de départ aléatoire</button>
+          </div>
+          <div id="starting-grid" class="grid-container">
+            <!-- La grille de départ sera générée ici -->
           </div>
         <article class="article article-display"></article>
       </section>

@@ -6,42 +6,52 @@ const teams = [
   {
     name: "Red Bull Racing",
     color: "#0600EF",
+    performance: 1.05,
   },
   {
     name: "Ferrari",
     color: "#DC0000",
+    performance: 1.02,
   },
   {
     name: "Mercedes",
     color: "#00D2BE",
+    performance: 1.03,
   },
   {
     name: "Aston Martin",
     color: "#006F62",
+    performance: 1.01,
   },
   {
     name: "McLaren",
     color: "#FF8700",
+    performance: 0.98,
   },
   {
     name: "Alpine",
     color: "#0090FF",
+    performance: 0.97,
   },
   {
     name: "Alfa Romeo",
     color: "#900000",
+    performance: 0.95,
   },
   {
     name: "AlphaTauri",
     color: "#2B4562",
+    performance: 0.96,
   },
   {
     name: "Williams",
     color: "#37BEDD",
+    performance: 0.92,
   },
   {
     name: "Haas",
     color: "#B6BABD",
+    performance: 0.93,
   },
 ];
 
