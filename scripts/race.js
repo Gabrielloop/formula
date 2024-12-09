@@ -1,19 +1,24 @@
 // script.js
 import { cars, teams } from "./data.js";
 
-const fastestSpeed = 360 / 80; // 4 deg/s
-const slowestSpeed = 360 / 100; // environ 3.956 deg/s
+function adaptSpeed() {
+  const fastestSpeed = 360 / 80; // 4 deg/s
+  const slowestSpeed = 360 / 100; // environ 3.956 deg/s
 
-cars.forEach((car) => {
-  car.speed = slowestSpeed + Math.random() * (fastestSpeed - slowestSpeed);
-});
+  cars.forEach((car) => {
+    car.speed = slowestSpeed + Math.random() * (fastestSpeed - slowestSpeed);
+  });
+}
+adaptSpeed();
 
 let circuitRadius = 150;
 let centerX = 150;
 let centerY = 150;
 let maxLaps = 3;
 let raceInterval;
+// ==== Utiliser dans updateTimerDisplay : temps de course
 let raceTime = 0;
+// ====
 let raceFinished = false;
 let results = [];
 let fastestLapTime = Infinity;
@@ -42,7 +47,7 @@ function recordRaceData() {
     raceData.push(snapshot);
   }
 }
-
+// controle
 function replayRace() {
   let replayIndex = 0;
   const replayInterval = setInterval(() => {
