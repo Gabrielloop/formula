@@ -52,3 +52,6 @@ td {
 h3 {
   margin-top: 30px;
 }
+.fastest-lap-row {
+  background-color: rgba(128, 13, 194, 0.5);
+}

@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="assets/race.css" />
     <link rel="stylesheet" href="assets/style.css" />
     <script src="scripts/basic.js" defer></script>
-    <script src="scripts/datas.js" defer></script>
-    <script src="scripts/changerank.js" defer></script>
     <script src="scripts/ranking.js" defer></script>
     <script type="module" src="scripts/race.js" defer></script>
   </head>
@@ -27,12 +25,16 @@
           <div class="logo-f1-race-type">
             <img src="assets/fone.png" alt="F1" />
             <h3>RACE</h3>
+            <div id="yellow-flag" style="display:none; color:yellow; font-size:2em;">Drapeau Jaune</div>
+            <div id="red-flag" style="display:none; color:red; font-size:2em;">Drapeau Rouge</div>
           </div>
           <div id="lap-button-div">
             <div>LAP 1/70</div>
-            <div class="lap-button">
-              <span class="left-part">next lap</span>
-              <button id="ranking-refresh" class="animated-button"></button>
+            <div>
+              <button id="start-button" class="display-cmd">&#9205;</button>
+              <button id="replay-button" disabled class="display-cmd">&#127902;</button>
+              <button id="pause-button" class="display-cmd">&#9208;</button>
+              <button id="fast-forward-button" class="display-cmd">&#x23ED;</button>
             </div>
           </div>
           <div class="ranking-row" id="position-1">
@@ -40,6 +42,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-2">
@@ -47,6 +50,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-3">
@@ -54,6 +58,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-4">
@@ -61,6 +66,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-5">
@@ -68,6 +74,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-6">
@@ -75,6 +82,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-7">
@@ -82,6 +90,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-8">
@@ -89,6 +98,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-9">
@@ -96,6 +106,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-10">
@@ -103,6 +114,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-11">
@@ -110,6 +122,7 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
           <div class="ranking-row" id="position-12">
@@ -117,12 +130,78 @@
             <div class="rank-team"></div>
             <div class="rank-name"></div>
             <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
+            <div class="rank-gap ranking-hidden-opt"></div>
+          </div>
+          <div class="ranking-row" id="position-13">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
+            <div class="rank-gap ranking-hidden-opt"></div>
+          </div>
+          <div class="ranking-row" id="position-14">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
+            <div class="rank-gap ranking-hidden-opt"></div>
+          </div>
+          <div class="ranking-row" id="position-15">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
+            <div class="rank-gap ranking-hidden-opt"></div>
+          </div>
+          <div class="ranking-row" id="position-16">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
+            <div class="rank-gap ranking-hidden-opt"></div>
+          </div>
+          <div class="ranking-row" id="position-17">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
+            <div class="rank-gap ranking-hidden-opt"></div>
+          </div>
+          <div class="ranking-row" id="position-18">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
+            <div class="rank-gap ranking-hidden-opt"></div>
+          </div>
+          <div class="ranking-row" id="position-19">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
+            <div class="rank-gap ranking-hidden-opt"></div>
+          </div>
+          <div class="ranking-row" id="position-20">
+            <div class="rank-position"></div>
+            <div class="rank-team"></div>
+            <div class="rank-name"></div>
+            <div class="rank-time"></div>
+            <div class="rank-lap ranking-hidden-opt"></div>
             <div class="rank-gap ranking-hidden-opt"></div>
           </div>
         </div>
         <div class="ranking-display">
           <button id="ranking-display-time">Time</button>
           <button id="ranking-display-gap">Gap</button>
+          <button id="ranking-display-lap">Lap</button>
           <button id="ranking-display-tyres">Tyres</button>
           <button id="ranking-display-pits">Pits</button>
           <button id="ranking-display-idCar">#car</button>
@@ -137,8 +216,7 @@
           <h1>Simulation de course de F1</h1>
           <div id="controls">
               <div id="timer">00:00</div>
-              <button id="start-button">Lancer la course</button>
-              <button id="replay-button" disabled>Rejouer la course</button>
+              
               <br><br>
       
               <label for="weather-select">Conditions météo : </label>
@@ -224,7 +302,7 @@
           <div id="results">
               <h2>Résultats de la course</h2>
               <table border="1">
-                
+
                   <thead>
                       <tr>
                           <th>Position</th>
