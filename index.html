@@ -30,8 +30,12 @@
           </div>
           <div id="lap-button-div">
             <div>LAP 1/70</div>
-            <button id="pause-button">Pause</button>
-<button id="fast-forward-button">Avance rapide</button>
+            <div>
+              <button id="start-button" class="display-cmd">&#9205;</button>
+              <button id="replay-button" disabled class="display-cmd">&#127902;</button>
+              <button id="pause-button" class="display-cmd">&#9208;</button>
+              <button id="fast-forward-button" class="display-cmd">&#x23ED;</button>
+            </div>
           </div>
           <div class="ranking-row" id="position-1">
             <div class="rank-position"></div>
@@ -212,8 +216,7 @@
           <h1>Simulation de course de F1</h1>
           <div id="controls">
               <div id="timer">00:00</div>
-              <button id="start-button">Lancer la course</button>
-              <button id="replay-button" disabled>Rejouer la course</button>
+              
               <br><br>
       
               <label for="weather-select">Conditions météo : </label>
